@@ -4,7 +4,8 @@ import useUserContext from "@/contexts/user-context"
 import { convertBase64 } from "@/lib/utils"
 
 export default function CredentialForm() {
-  const { setName, setIdNumber, setImageBase64 } = useUserContext()
+  const { setName, setIdNumber, setImageBase64, name, idNumber } =
+    useUserContext()
 
   const handlerFile = async (e) => {
     const file = event.target.files[0]
@@ -14,8 +15,13 @@ export default function CredentialForm() {
 
   return (
     <div className="px-2 space-y-2">
-      <Input placeholder="Name" onChange={(e) => setName(e.target.value)} />
       <Input
+        placeholder="Name"
+        onChange={(e) => setName(e.target.value)}
+        value={name}
+      />
+      <Input
+        value={idNumber}
         placeholder="ID Number"
         maxLength="12"
         onChange={(e) => setIdNumber(e.target.value)}
