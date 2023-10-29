@@ -33,7 +33,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-        <div className="col-span-3 lg:col-span-4 lg:border-l border-primary">
+        <div className="col-span-3 overflow-hidden lg:col-span-4 lg:border-l border-primary">
           <CredentialTva />
         </div>
       </div>
