@@ -2,7 +2,6 @@ import { Zeyada } from "next/font/google"
 import "./globals.css"
 import Providers from "./providers"
 import { cn } from "@/lib/utils"
-
 const zeyada = Zeyada({
   subsets: ["latin"],
   variable: "--font-signature",

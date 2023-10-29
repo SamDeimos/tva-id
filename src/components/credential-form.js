@@ -1,6 +1,6 @@
 "use client"
 import { Input } from "./ui/input"
-import useUserContext from "@/contexts/user-provider"
+import useUserContext from "@/contexts/user-context"
 import { convertBase64 } from "@/lib/utils"
 
 export default function CredentialForm() {

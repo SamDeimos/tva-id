@@ -3,6 +3,8 @@ import { ModeToggle } from "../components/ui/mode-toggle"
 
 import CredentialTva from "../components/credential-tva"
 import CredentialForm from "@/components/credential-form"
+import Modal from "@/components/modal"
+import CredentialOpenEditModal from "@/components/credential-open-edit-modal"
 
 export default function HomePage() {
   return (
@@ -26,7 +28,13 @@ export default function HomePage() {
         </div>
       </div>
 
-      <section className="hidden md:block">
+      <Modal>
+        <CredentialForm />
+      </Modal>
+
+      <CredentialOpenEditModal />
+
+      <section className="hidden lg:block">
         <div className="absolute bottom-0 right-0">
           <Image
             src="/miss-minutes-1.png"

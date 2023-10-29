@@ -2,74 +2,28 @@
 
 import Image from "next/image"
 import { useRef } from "react"
-import { toPng } from "html-to-image"
 import { Button } from "./ui/button"
 import CredentialTvaItem from "./credential-tva-item"
-import useUserContext from "@/contexts/user-provider"
-import { cn, kebabCase } from "@/lib/utils"
+import useUserContext from "@/contexts/user-context"
+import { cn } from "@/lib/utils"
 
 import styles from "./credential-tva.module.css"
 import Link from "next/link"
+import useDownloadCredential from "@/hooks/use-download-credential"
+import useRotateCredential from "@/hooks/use-rotate-credential"
 
 export default function CredentialTva() {
   const buyMeACoffie = process.env.NEXT_PUBLIC_BUYMEACOFFEELINK
-  const { name, idNumber, imageBase64 } = useUserContext()
 
   const inputRef = useRef()
-
-  const htmlToImageConvert = () => {
-    toPng(inputRef.current, { cacheBust: false })
-      .then((dataUrl) => {
-        const link = document.createElement("a")
-        link.download = `special-agent-${kebabCase(name)}.png`
-        link.href = dataUrl
-        link.click()
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }
-
-  let bounds
-
   const glowRef = useRef()
-  const rotateToMouse = (e) => {
-    bounds = inputRef.current.getBoundingClientRect()
-    const mouseX = e.clientX
-    const mouseY = e.clientY
-    const leftX = mouseX - bounds.x
-    const topY = mouseY - bounds.y
-    const center = {
-      x: leftX - bounds.width / 2,
-      y: topY - bounds.height / 2,
-    }
-    const distance = Math.sqrt(center.x ** 2 + center.y ** 2)
 
-    inputRef.current.style.transform = `
-      scale3d(1.07, 1.07, 1.07)
-      rotate3d(
-        ${center.y / 100},
-        ${-center.x / 100},
-        0,
-        ${Math.log(distance) * 2}deg
-      )
-    `
-    // console.log(center.y / 100)
-    glowRef.current.style.backgroundImage = `
-      radial-gradient(
-        circle at
-        ${center.x * 2 + bounds.width / 2}px
-        ${center.y * 2 + bounds.height / 2}px,
-        #ffffff55,
-        #0000000f
-      )
-    `
-  }
-  const removeListener = (e) => {
-    inputRef.current.style.transform = ""
-    inputRef.current.style.background = ""
-    glowRef.current.style.backgroundImage = ""
-  }
+  const { name, idNumber, imageBase64 } = useUserContext()
+  const { htmlToImageConvert } = useDownloadCredential(inputRef)
+  const { rotateToMouse, rotateToTouch, removeListener } = useRotateCredential(
+    inputRef,
+    glowRef
+  )
 
   return (
     <div>
@@ -84,9 +38,9 @@ export default function CredentialTva() {
             styles.card
           )}
           onMouseLeave={removeListener}
-          onTouchEnd={removeListener}
           onMouseMove={rotateToMouse}
-          onTouchMove={rotateToMouse}
+          onTouchEnd={removeListener}
+          onTouchMove={rotateToTouch}
           ref={inputRef}
         >
           <div className="h-full border-4 border-blue-900 rounded">
@@ -102,7 +56,6 @@ export default function CredentialTva() {
                     alt="time-variance-authority"
                     src={"/time-variance-authority.png"}
                     fill
-                    // objectFit="contain"
                   />
                 </div>
                 <div className="relative w-[40%] h-full">
@@ -117,22 +70,13 @@ export default function CredentialTva() {
                   <Image
                     alt="image-agent"
                     src={`${imageBase64 || "/image-agent.png"}`}
-                    className="w-full h-full sepia-[30%] object-contain"
+                    className="w-full h-full sepia-[30%] object-cover"
                     fill
                   />
                 </div>
               </div>
             </div>
-            {/* Imagen */}
-            {/* <div className="absolute top-[16%] right-10 bg-red-300 aspect-[3/4] w-40">
-            <Image
-              src={"/sam-7.png"}
-              className="w-full h-full"
-              layout="fill"
-              objectFit="cover"
-              //   sizes="100vw"
-            />
-          </div> */}
+
             {/* white */}
             <div className="flex justify-between w-full px-3 text-black md:px-2 lg:px-3 h-1/2">
               <div className="flex-1 space-y-[0.9] xl:space-y-3 md:pt-1">

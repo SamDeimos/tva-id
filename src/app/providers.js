@@ -1,6 +1,7 @@
 "use client"
-import ThemeProvider from "@/contexts/theme-provider"
-import { UserProvider } from "@/contexts/user-provider"
+import { ModalProvider } from "@/contexts/modal-context"
+import ThemeProvider from "@/contexts/theme-context"
+import { UserProvider } from "@/contexts/user-context"
 
 export default function Providers({ children }) {
   return (
@@ -10,7 +11,9 @@ export default function Providers({ children }) {
       enableSystem
       disableTransitionOnChange
     >
-      <UserProvider>{children}</UserProvider>
+      <UserProvider>
+        <ModalProvider>{children}</ModalProvider>
+      </UserProvider>
     </ThemeProvider>
   )
 }
