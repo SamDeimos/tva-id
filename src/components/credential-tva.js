@@ -80,7 +80,9 @@ export default function CredentialTva() {
             styles.card
           )}
           onMouseLeave={removeListener}
+          onTouchEnd={removeListener}
           onMouseMove={rotateToMouse}
+          onTouchMove={rotateToMouse}
           ref={inputRef}
         >
           <div className="h-full border-4 border-blue-900 rounded">
