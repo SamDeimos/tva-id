@@ -1,24 +1,12 @@
-"use client"
-
 import Image from "next/image"
 import { ModeToggle } from "../components/ui/mode-toggle"
 
-// import * as htmlToImage from "html-to-image"
 import CredentialTva from "../components/credential-tva"
 import CredentialForm from "@/components/credential-form"
 
 export default function HomePage() {
   return (
     <main>
-      <nav className="fixed flex justify-between w-full px-4 py-2">
-        {/* img */}
-
-        {/* Menu */}
-        {/* <div>
-          <ModeToggle />
-        </div> */}
-      </nav>
-
       <div className="grid lg:grid-cols-5">
         <div className="hidden lg:block shadow-all">
           <div className="flex flex-col justify-between h-screen">

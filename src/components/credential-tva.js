@@ -1,3 +1,5 @@
+"use client"
+
 import Image from "next/image"
 import { useRef } from "react"
 import { toPng } from "html-to-image"
@@ -7,8 +9,10 @@ import useUserContext from "@/contexts/user-provider"
 import { cn, kebabCase } from "@/lib/utils"
 
 import styles from "./credential-tva.module.css"
+import Link from "next/link"
 
 export default function CredentialTva() {
+  const buyMeACoffie = process.env.NEXT_PUBLIC_BUYMEACOFFEELINK
   const { name, idNumber, imageBase64 } = useUserContext()
 
   const inputRef = useRef()
@@ -94,29 +98,27 @@ export default function CredentialTva() {
               <div className="flex h-[70%] md:h-[65%] xl:h-[80%] space-x-4 md:space-x-2">
                 <div className="relative w-[20%] h-full">
                   <Image
-                    className="xl:p-2"
+                    className="object-contain xl:p-2"
                     alt="time-variance-authority"
                     src={"/time-variance-authority.png"}
                     fill
-                    objectFit="contain"
+                    // objectFit="contain"
                   />
                 </div>
                 <div className="relative w-[40%] h-full">
                   <Image
                     alt="tva"
                     src={"/tva.svg"}
-                    className="w-full h-full"
+                    className="object-contain w-full h-full"
                     fill
-                    objectFit="contain"
                   />
                 </div>
                 <div className="absolute w-[20%] aspect-[3/4] right-8 xl:right-10">
                   <Image
                     alt="image-agent"
                     src={`${imageBase64 || "/image-agent.png"}`}
-                    className="w-full h-full sepia-[30%]"
+                    className="w-full h-full sepia-[30%] object-contain"
                     fill
-                    objectFit="cover"
                   />
                 </div>
               </div>
@@ -161,9 +163,15 @@ export default function CredentialTva() {
 
           <div ref={glowRef} className={styles.glow} />
         </div>
-        <div className="mt-6">
+        <div className="flex w-full px-2 mt-6 space-x-6 md:px-48 ">
           <Button className="w-full" onClick={htmlToImageConvert}>
             Download
+          </Button>
+          <Button variant="outline" className="w-full ">
+            <Link href={buyMeACoffie}>
+              <span className="mr-2 text-lg">🍰</span>
+              Buy me a lemon pie
+            </Link>
           </Button>
         </div>
 

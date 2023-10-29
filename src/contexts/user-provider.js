@@ -3,8 +3,8 @@ import { createContext, useContext, useMemo, useState } from "react"
 export const UserContext = createContext()
 
 export const UserProvider = ({ children }) => {
-  const [name, setName] = useState("")
-  const [idNumber, setIdNumber] = useState("")
+  const [name, setName] = useState("Mobius M. Mobius")
+  const [idNumber, setIdNumber] = useState("M629 7081")
   const [imageBase64, setImageBase64] = useState("")
 
   const values = useMemo(
