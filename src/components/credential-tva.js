@@ -69,7 +69,7 @@ export default function CredentialTva() {
                 <div className="absolute w-[20%] aspect-[3/4] right-8 xl:right-10">
                   <Image
                     alt="image-agent"
-                    src={`${imageBase64 || "/image-agent.png"}`}
+                    src={`${imageBase64 || "/Mobius_M._Mobius.webp"}`}
                     className="w-full h-full sepia-[30%] object-cover"
                     fill
                   />
