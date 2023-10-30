@@ -1,7 +1,9 @@
+import { cn } from "@/lib/utils"
+import { Analytics } from "@vercel/analytics/react"
 import { Zeyada } from "next/font/google"
 import "./globals.css"
 import Providers from "./providers"
-import { cn } from "@/lib/utils"
+
 const zeyada = Zeyada({
   subsets: ["latin"],
   variable: "--font-signature",
@@ -17,7 +19,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cn(zeyada.variable)}>
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <Analytics />
+        </Providers>
       </body>
     </html>
   )
